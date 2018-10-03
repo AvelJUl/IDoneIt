@@ -7,4 +7,4 @@
 
 # Содержимое репозитория:
 1 [Документация](docs)<br>
-1.1 [Спецификация требований](docs/requirements.md)<br>
+1.1 [Спецификация требований](docs/Software Requirements Specification.md)<br>
