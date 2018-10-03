@@ -41,6 +41,29 @@
 
 ### 2.2\. Интерфейс пользователя <a name="2.2"></a>
 Графический интерфейс пользователя представлен в виде mockup иллюстраций.
-
-
-
+| Краткое описание | Mockup иллюстрация |
+|:---|:---|
+| Список проектов, доступных данному администратору. |<img src="https://github.com/AvelJUl/IDoneIt/blob/14c11002cc323ec8c65dcebd4ff2fa5948b101e3/docs/mockups/administrator_project_list_page.png?raw=true"> |
+| Создание проекта. Этап ввода основной информации. | <img src="https://github.com/AvelJUl/IDoneIt/blob/14c11002cc323ec8c65dcebd4ff2fa5948b101e3/docs/mockups/administrator_project_information_create_page.png?raw=true"> |
+| Создание проекта. Этап добавления участников проекта. | <img src="https://github.com/AvelJUl/IDoneIt/blob/14c11002cc323ec8c65dcebd4ff2fa5948b101e3/docs/mockups/administrator_project_members_create_page.png?raw=true"> |
+| Создание проекта. Этап определения категорий задач, связанных с проектом. | <img src="https://github.com/AvelJUl/IDoneIt/blob/14c11002cc323ec8c65dcebd4ff2fa5948b101e3/docs/mockups/administrator_project_issue_categories_create_page.png?raw=true"> |
+| Список пользователей, доступных данному администратору. | <img src="https://github.com/AvelJUl/IDoneIt/blob/14c11002cc323ec8c65dcebd4ff2fa5948b101e3/docs/mockups/administrator_user_list_page.png?raw=true"> |
+| Создание (регистрация) пользователя. | <img src="https://github.com/AvelJUl/IDoneIt/blob/14c11002cc323ec8c65dcebd4ff2fa5948b101e3/docs/mockups/administrator_user_create_page.png?raw=true"> |
+| Список ролей, доступных данному администратору. | <img src="https://github.com/AvelJUl/IDoneIt/blob/14c11002cc323ec8c65dcebd4ff2fa5948b101e3/docs/mockups/administrator_role_list_page.png?raw=true"> |
+| Создание роли с указанием присущих ей ограничений. | <img src="https://github.com/AvelJUl/IDoneIt/blob/14c11002cc323ec8c65dcebd4ff2fa5948b101e3/docs/mockups/administrator_role_create_page.png?raw=true"> |
+| Список категорий задач, доступных данному администратору, с возможностью добавления, редактирования и удаления. | <img src="https://github.com/AvelJUl/IDoneIt/blob/14c11002cc323ec8c65dcebd4ff2fa5948b101e3/docs/mockups/administrator_issue_categories_list_page.png?raw=true"> |
+| Обзор проекта, в разработке которого принимает участие пользователь. | <img src="https://github.com/AvelJUl/IDoneIt/blob/14c11002cc323ec8c65dcebd4ff2fa5948b101e3/docs/mockups/user_project_overview_page.png?raw=true"> |
+| Список задач, поставленных на проекте, над которым работает пользователь. | <img src="https://github.com/AvelJUl/IDoneIt/blob/14c11002cc323ec8c65dcebd4ff2fa5948b101e3/docs/mockups/user_issue_list_page.png?raw=true"> |
+| Создание задачи, доступное пользователю. | <img src="https://github.com/AvelJUl/IDoneIt/blob/14c11002cc323ec8c65dcebd4ff2fa5948b101e3/docs/mockups/user_issue_create_page.png?raw=true"> |
+| Календарь. | <img src="https://github.com/AvelJUl/IDoneIt/blob/14c11002cc323ec8c65dcebd4ff2fa5948b101e3/docs/mockups/user_calendar_page.png?raw=true"> |
+### 2.3\. Характеристики пользователей <a name="2.3"></a>
+#### 2.3.1\. Классы пользователей <a name="2.3.1"></a>
+| Класс пользователя | Описание |
+|:---|:---|
+| Авторизированный пользователь | Пользователь, прошедший процесс авторизации в системе под своим именем или псевдонимом. Имеет полный доступ к пользовательскому функционалу системы: может создавать, редактировать и удалять задачи. |
+| Администратор | Пользователь, прошедший процесс авторизации в системе под своим именем или псевдонимом. Имеет полный доступ к функционалу администратора системы: может создавать, редактировать, архивировать и удалять проекты, регистрировать пользователей, создавать, редактировать и удалять роли и их ограничения, а также создавать, редактировать и удалять категории задач.|
+#### 2.3.2\. Аудитория приложения <a name="2.3.2"></a>
+Люди, занимающиеся или обучающиеся управлению или разработке проектов, связанных с сопровождением программного обеспечения в течение его жизненного цикла, имеющие определенный уровень знаний в данной области. Например, квалифицированные программисты или студенты учреждений образования с техническим профилем в области информационных технологий.
+### 2.4\. Предположения и зависимости <a name="2.4"></a>
+1. Приложение не будет работать без подключения к сети Интернет.
+2. Возможно, будет обеспечено взаимодействие данного приложения и системы контроля версий Git.
