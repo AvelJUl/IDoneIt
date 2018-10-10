@@ -93,16 +93,16 @@
 
 | Краткое описание | Mockup иллюстрация |
 |:---|:---|
-| Список проектов, доступных данному администратору. |<img src="https://github.com/AvelJUl/IDoneIt/blob/14c11002cc323ec8c65dcebd4ff2fa5948b101e3/docs/mockups/administrator_project_list_page.png?raw=true"> |
-| Создание проекта. Этап ввода основной информации. | <img src="https://github.com/AvelJUl/IDoneIt/blob/14c11002cc323ec8c65dcebd4ff2fa5948b101e3/docs/mockups/administrator_project_information_create_page.png?raw=true"> |
-| Создание проекта. Этап добавления участников проекта. | <img src="https://github.com/AvelJUl/IDoneIt/blob/14c11002cc323ec8c65dcebd4ff2fa5948b101e3/docs/mockups/administrator_project_members_create_page.png?raw=true"> |
-| Список пользователей, доступных данному администратору. | <img src="https://github.com/AvelJUl/IDoneIt/blob/14c11002cc323ec8c65dcebd4ff2fa5948b101e3/docs/mockups/administrator_user_list_page.png?raw=true"> |
-| Создание (регистрация) пользователя. | <img src="https://github.com/AvelJUl/IDoneIt/blob/14c11002cc323ec8c65dcebd4ff2fa5948b101e3/docs/mockups/administrator_user_create_page.png?raw=true"> |
-| Список ролей, доступных данному администратору. | <img src="https://github.com/AvelJUl/IDoneIt/blob/14c11002cc323ec8c65dcebd4ff2fa5948b101e3/docs/mockups/administrator_role_list_page.png?raw=true"> |
-| Создание роли с указанием присущих ей ограничений. | <img src="https://github.com/AvelJUl/IDoneIt/blob/14c11002cc323ec8c65dcebd4ff2fa5948b101e3/docs/mockups/administrator_role_create_page.png?raw=true"> |
-| Обзор проекта, в разработке которого принимает участие пользователь. | <img src="https://github.com/AvelJUl/IDoneIt/blob/14c11002cc323ec8c65dcebd4ff2fa5948b101e3/docs/mockups/user_project_overview_page.png?raw=true"> |
-| Список задач, поставленных на проекте, над которым работает пользователь. | <img src="https://github.com/AvelJUl/IDoneIt/blob/14c11002cc323ec8c65dcebd4ff2fa5948b101e3/docs/mockups/user_issue_list_page.png?raw=true"> |
-| Создание задачи, доступное пользователю. | <img src="https://github.com/AvelJUl/IDoneIt/blob/14c11002cc323ec8c65dcebd4ff2fa5948b101e3/docs/mockups/user_issue_create_page.png?raw=true"> |
+| Список проектов, доступных данному администратору. |<img src="https://github.com/AvelJUl/IDoneIt/blob/master/docs/mockups/administrator_project_list_page.png"|
+| Создание проекта. Этап ввода основной информации. | <img src="https://github.com/AvelJUl/IDoneIt/blob/master/docs/mockups/administrator_project_information_create_page.png"> |
+| Создание проекта. Этап добавления участников проекта. | <img src="https://github.com/AvelJUl/IDoneIt/blob/master/docs/mockups/administrator_project_members_create_page.png"> |
+| Список пользователей, доступных данному администратору. | <img src="https://github.com/AvelJUl/IDoneIt/blob/master/docs/mockups/administrator_user_list_page.png"> |
+| Создание (регистрация) пользователя. | <img src="https://github.com/AvelJUl/IDoneIt/blob/master/docs/mockups/administrator_user_create_page.png"> |
+| Список ролей, доступных данному администратору. | <img src="https://github.com/AvelJUl/IDoneIt/blob/master/docs/mockups/administrator_role_create_page.png"> |
+| Создание роли с указанием присущих ей ограничений. | <img src="https://github.com/AvelJUl/IDoneIt/blob/master/docs/mockups/administrator_role_list_page.png"> |
+| Обзор проекта, в разработке которого принимает участие пользователь. | <img src="https://github.com/AvelJUl/IDoneIt/blob/master/docs/mockups/user_project_overview_page.png"> |
+| Список задач, поставленных на проекте, над которым работает пользователь. | <img src="https://github.com/AvelJUl/IDoneIt/blob/master/docs/mockups/user_issue_list_page.png"> |
+| Создание задачи, доступное пользователю. | <img src="https://github.com/AvelJUl/IDoneIt/blob/master/docs/mockups/user_issue_create_page.png"> |
 | Календарь, где отмечены предстоящие встречи. | <img src="https://github.com/AvelJUl/IDoneIt/blob/master/docs/mockups/user_meetings_page.png"> |
 ### 2.3\. Характеристики пользователей <a name="2.3"></a>
 #### 2.3.1\. Классы пользователей <a name="2.3.1"></a>
@@ -178,27 +178,26 @@
 ##### 3.1.1.19\. Удаление встречи <a name="3.1.1.19"></a>
 ##### 3.1.1.20\. Выход авторизированного пользователя из профиля <a name="3.1.1.20"></a>
 
-
 #### 3.1.2\. Ограничения и исключения<a name="3.1.2"></a>
 
-	- Приложение может работать только при активном подключения к сети Интернет.
+- Приложение может работать только при активном подключения к сети Интернет.
 ### 3.2\. Нефункциональные требования<a name="3.2"></a>
 
 #### 3.2.1\. Атрибуты качества<a name="3.2.1"></a>
 
 ##### 3.2.1.1\. Требования к удобству использования<a name="3.2.1.1"></a>
 
-	- Приложение должно предоставлять единообразный вид между всеми web-страницами.
+- Приложение должно предоставлять единообразный вид между всеми web-страницами.
 
-	- Все функциональные элементы пользовательского интерфейса, при нажатии на них правой кнопкой мыши, должны предоставлять краткое описание выволняемой функции.
+- Все функциональные элементы пользовательского интерфейса, при нажатии на них правой кнопкой мыши, должны предоставлять краткое описание выволняемой функции.
 
 
 #### 3.2.2\. Внешние интерфейсы<a name="3.2.2"></a>
 
 Окна приложения удобны для использования пользователями с плохим зрением:
 
-	- Размер шрифта не менее 14 пт.
+- Размер шрифта не менее 14 пт.
 
 #### <a name="P3.2.3">3.2.3. Ограничения</a>
 
-	- Профили пользователей и данные о проектах, задачах, ролях и встречах хранятся в базе данных.
+- Профили пользователей и данные о проектах, задачах, ролях и встречах хранятся в базе данных.
