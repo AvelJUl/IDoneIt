@@ -26,7 +26,7 @@
 
 ## 1\. Диаграмма прецедентов <a name = "1"></a>
 
-<img src="https://github.com/AvelJUl/IDoneIt/blob/master/docs/diagrams/use_case_diagram.png">
+<img src="https://github.com/AvelJUl/IDoneIt/blob/master/docs/diagrams/use_case_diagram.PNG">
 
 ### 1.1\. Описание актёров <a name = "1.1"></a>
 
