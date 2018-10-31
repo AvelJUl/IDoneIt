@@ -726,3 +726,5 @@
 
 ## 5\. Диаграмма развёртывания <a name = "5"></a>
 
+![classdiagram](diagrams/deployment_diagram.PNG)
+
