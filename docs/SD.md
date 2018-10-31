@@ -720,6 +720,9 @@
 ![sequencediagram](diagrams/sequence/http.PNG)
 
 ## 3\. Диаграмма состояний <a name = "3"></a>
+
+![statediagram](diagrams/state_diagram.PNG)
+
 ## 4\. Диаграмма классов <a name = "4"></a>
 
 ![classdiagram](diagrams/class_diagram.PNG)
