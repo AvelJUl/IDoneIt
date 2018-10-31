@@ -713,7 +713,11 @@
 
 ## 2\. Диаграммы последовательности <a name = "2"></a>
 
+![sequencediagram](diagrams/sequence/signup.PNG)
+
 ### 2.1\. Обмен между приложение и сервером по протоколу HTTP <a name = "2.1"></a>
+
+![sequencediagram](diagrams/sequence/http.PNG)
 
 ## 3\. Диаграмма состояний <a name = "3"></a>
 ## 4\. Диаграмма классов <a name = "4"></a>
