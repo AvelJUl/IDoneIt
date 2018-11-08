@@ -713,7 +713,7 @@
 
 ## 2\. Диаграммы последовательности <a name = "2"></a>
 
-![sequencediagram](diagrams/sequence/signup.PNG)
+![sequencediagram](diagrams/sequence/admin.PNG)
 
 ### 2.1\. Обмен между приложение и сервером по протоколу HTTP <a name = "2.1"></a>
 
