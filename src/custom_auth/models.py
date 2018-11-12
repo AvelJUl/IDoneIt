@@ -18,10 +18,11 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
             'unique': _("A user with that username already exists."),
         },
     )
-    email = models.EmailField(_('email address'), blank=True)
+    email = models.EmailField(_('email address'), blank=True, default=None)
     first_name = models.CharField(_('first name'), max_length=30)
     last_name = models.CharField(_('last name'), max_length=30)
     last_login_date = models.DateTimeField(_('last_login_date'), blank=True)
+    is_staff = models.BooleanField(_('last_login_date'), default=False)
 
     objects = UserManager()
 
@@ -42,3 +43,4 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
 class User(AbstractUser):
     class Meta(AbstractUser.Meta):
         swappable = 'AUTH_USER_MODEL'
+
