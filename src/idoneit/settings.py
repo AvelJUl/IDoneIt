@@ -110,6 +110,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_PASSWORD_VALIDATORS.clear()
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/

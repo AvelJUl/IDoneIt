@@ -1,5 +1,6 @@
 {% load i18n static %}
 <!DOCTYPE html>
+<html>
 <head>
     <title>{% block title %}{{ title|default:"IDoneIt" }}{% endblock %}</title>
 
@@ -35,6 +36,8 @@
 <body class="{% block bodyclass %}{% endblock %}"
       data-admin-utc-offset="{% now "Z" %}"
 >
+
+{% include "idoneit/header.html" %}
 
     <!-- Container -->
     <div id="container">

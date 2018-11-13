@@ -1,35 +1,21 @@
+{% load i18n static %}
 {% block header %}
 <!-- Header -->
 <div id="header">
     <div id="branding">
     {% block branding %}
         <h1 id="site-name">
-            {% url 'home' as home_url %}
-            <a href="{% firstof site_url home_url %}">
+            <a href="#">
                 {{ site_header|default:_('IDoneIt') }}
             </a>
         </h1>
     {% endblock %}
     </div>
-    <div id="second-branding">
-        {% if user.is_staff %}
-        <h1 id="administration-link">
-            <a href="{% url 'admin:index' %}">
-                {% trans 'Site administraiting' %}
-            </a>
-        </h1>
-        {% endif %}
-    </div>
 
-    {% block usertools %}
+        {% block usertools %}
         <div id="user-tools">
             {% if user.is_anonymous %}
-                {% block welcome-msg-anonymous %}
-                    {% trans 'Welcome,' %}
-                    <strong>{% trans 'Dear Customer' %}</strong>.
-                {% endblock %}
                 {% block userlinks-anonymous %}
-                    <a href="{% url 'template_create' %}">{% trans 'Share' %}</a> /
                     <a href="{% url 'login' %}">{% trans 'Log in' %}</a> /
                     <a href="{% url 'signup' %}">{% trans 'Registration' %}</a>
                 {% endblock %}
@@ -38,14 +24,6 @@
                 {% block welcome-msg %}
                     {% trans 'Welcome,' %}
                     <strong>{{ user.get_username }}</strong>.
-                {% endblock %}
-                {% block userlinks %}
-                    <a href="{% url 'template_list' user=user.id %}">{% trans 'My templates' %}</a> /
-                    <a href="{% url 'template_create' %}">{% trans 'Upload' %}</a> /
-                    {% if user.has_usable_password %}
-                        <a href="{% url 'password_change' %}">{% trans 'Change password' %}</a> /
-                    {% endif %}
-                    <a href="{% url 'logout' %}">{% trans 'Log out' %}</a>
                 {% endblock %}
             {% endif %}
         </div>
