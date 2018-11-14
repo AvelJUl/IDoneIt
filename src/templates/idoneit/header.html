@@ -24,6 +24,7 @@
                 {% block welcome-msg %}
                     {% trans 'Welcome,' %}
                     <strong>{{ user.get_username }}</strong>.
+                    <a href="{% url 'logout' %}">{% trans 'Log out' %}</a>
                 {% endblock %}
             {% endif %}
         </div>

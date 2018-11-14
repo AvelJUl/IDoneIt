@@ -39,15 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'custom_auth',
+    'core',
 ]
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -90,7 +90,7 @@ AUTH_USER_MODEL = 'custom_auth.User'
 
 # URL to redirect user after authorization
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'admin/users/'
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators

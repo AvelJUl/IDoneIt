@@ -1,0 +1,41 @@
+{% extends "idoneit/base.html" %}
+{% load i18n staticfiles %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" href={% static 'admin/css/changelists.css' %}>
+{% endblock %}
+
+
+{% block content %}
+    <div class="module" id="changelist">
+        {% if object_list %}
+            <div class="grid-wrapper">
+                <table>
+                    <caption>{% trans "Users" %}</caption>
+                    <tr>
+                        <td>№</td>
+                        <td>{% trans "Username" %}</td>
+                        <td>{% trans "First name" %}</td>
+                        <td>{% trans "Last name" %}</td>
+                        <td>{% trans "Email" %}</td>
+                        <td>{% trans "Last login" %}</td>
+                    </tr>
+                    {% for user in object_list %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>
+                            <!--<a href="{{ user.get_absolute_url }}">-->
+                                {{ user.username }}
+                            <!--</a>-->
+                        </td>
+                        <td>{{ user.first_name }}</td>
+                        <td>{{ user.last_name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.last_login_date }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endif %}
+  </div>
+{% endblock %}

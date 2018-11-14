@@ -18,7 +18,8 @@ class LoginView(_LoginView):
     Extended LoginView class with decorator to redirect authenticated users.
     """
     template_name = 'registration/login.html'
-    #@method_decorator(user_passes_test(lambda u: not u.is_authenticated, login_url=reverse_lazy('')))
+
+    @method_decorator(user_passes_test(lambda u: not u.is_authenticated, login_url=reverse_lazy('admin_user_list')))
     @method_decorator(sensitive_post_parameters())
     @method_decorator(csrf_protect)
     @method_decorator(never_cache)
@@ -38,7 +39,7 @@ class RegistrationView(CreateView):
         'title': _("New administrator registration")
     }
 
-    #@method_decorator(user_passes_test(lambda u: not u.is_authenticated, login_url=reverse_lazy('home')))
+    @method_decorator(user_passes_test(lambda u: not u.is_authenticated, login_url=reverse_lazy('admin_user_list')))
     @method_decorator(sensitive_post_parameters())
     @method_decorator(csrf_protect)
     @method_decorator(never_cache)
@@ -57,7 +58,9 @@ class RegistrationView(CreateView):
         return context
 
     def post(self, request, *args, **kwargs):
-        super().post(request, *args, **kwargs)
-        self.object.is_staff = True
-        self.object.created_by_id = self.object.id
-        self.object.save()
+        response = super().post(request, *args, **kwargs)
+        if self.object is not None:
+            self.object.is_staff = True
+            self.object.created_by_id = self.object.id
+            self.object.save()
+        return response
