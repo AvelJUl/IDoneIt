@@ -93,3 +93,4 @@ class UserView(DetailView):
             return HttpResponseRedirect(reverse_lazy('admin_user_list'))
         context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
+

@@ -61,6 +61,7 @@ class RegistrationView(CreateView):
         response = super().post(request, *args, **kwargs)
         if self.object is not None:
             self.object.is_staff = True
+            self.object.is_superuser=True
             self.object.created_by_id = self.object.id
             self.object.save()
         return response

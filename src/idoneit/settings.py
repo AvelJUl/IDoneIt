@@ -38,8 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'custom_auth',
+    'custom_auth.apps.CustomAuthConfig',
     'core',
+
+    'jquery',
 ]
 
 MIDDLEWARE = [
