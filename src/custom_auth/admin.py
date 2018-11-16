@@ -17,7 +17,6 @@ class UserAdmin(_UserAdmin):
     Includes default admin options.
     """
     add_form_template = 'admin/custom_auth/user/add_form.html'
-    change_list_html = 'admin/custom_auth/user/change_list.html'
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
         (_('Personal info'), {'fields': ('first_name', 'last_name', 'email',)}),

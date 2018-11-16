@@ -22,6 +22,5 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', admin.admin_site.urls),
-    url('', include('custom_auth.urls')),
-    url('idoneit/', include('core.urls'))
+    url('', include('custom_auth.urls'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

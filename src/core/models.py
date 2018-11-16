@@ -31,6 +31,18 @@ class Role(models.Model):
             'unique': _("A role with that name already exists."),
         },
     )
+    edit_project = models.BooleanField(_('edit project'), default=False)
+    create_issue = models.BooleanField(_('create issue'), default=0)
+    edit_issue = models.BooleanField(_('edit issue'), default=0)
+    delete_issue = models.BooleanField(_('delete issue'), default=0)
+    create_meeting = models.BooleanField(_('create meeting'), default=0)
+    edit_meeting = models.BooleanField(_('edit meeting'), default=0)
+    delete_meeting = models.BooleanField(_('delete meeting'), default=0)
+    created_by_id = models.IntegerField(_('created_by_id'), default=0)
+
+    class Meta:
+        verbose_name = _('role')
+        verbose_name_plural = _('roles')
 
 
 class Permission(models.Model):

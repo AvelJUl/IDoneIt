@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'custom_auth.apps.CustomAuthConfig',
-    'core',
+    'core.apps.CoreConfig',
 
     'jquery',
 ]
