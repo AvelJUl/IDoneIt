@@ -19,6 +19,11 @@ class Project(models.Model):
         null=True,
         blank=True
     )
+    created_by_id = models.IntegerField(_('created_by_id'), default=0)
+
+    class Meta:
+        verbose_name = _('project')
+        verbose_name_plural = _('projects')
 
 
 class Role(models.Model):
