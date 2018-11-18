@@ -38,10 +38,12 @@ class UserCreate(CreateView):
         return context
 
     def post(self, request, *args, **kwargs):
-        super().post(request, *args, **kwargs)
-        self.object.is_staff = False
-        self.object.created_by_id = self.request.user.id
-        self.object.save()
+        response = super().post(request, *args, **kwargs)
+        if self.object is not None:
+            self.object.is_staff = False
+            self.object.created_by_id = self.request.user.id
+            self.object.save()
+        return response
 
 
 class UserList(ListView):
@@ -72,3 +74,22 @@ class UserList(ListView):
             extra_content.update({'search_query': search_query})
         context.update(extra_content)
         return context
+
+
+class UserView(DetailView):
+    """
+    Show details about selected template.
+    """
+    model = User
+    template_name = 'idoneit/core/user/view_form.html'
+
+    def __init__(self, **kwargs):
+        self.object = None
+        super().__init__(**kwargs)
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if not self.object.created_by_id == request.user.id:
+            return HttpResponseRedirect(reverse_lazy('admin_user_list'))
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)

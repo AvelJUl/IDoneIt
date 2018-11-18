@@ -19,7 +19,7 @@ admin_role_patterns = [
 admin_user_patterns = [
     path('', views.UserList.as_view(), name='admin_user_list'),
     path( 'create/', views.UserCreate.as_view(), name='admin_user_create'),
-    #path('view/(?P<pk>\d+)', views.UserView.as_view(), name='admin_user_view'),
+    path('view/<int:pk>', views.UserView.as_view(), name='admin_user_view'),
     #path('update/(?P<pk>\d+)', views.UserUpdate.as_view(), name='admin_user_update'),
 ]
 
