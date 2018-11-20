@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+{% load i18n static %}
+
+<head>
+    <title>{% block title %}{{ title|default:"IDoneIt" }}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "admin/css/base.css" %}{% endblock %}">
+
+    {% block extrastyle %}{% endblock %}
+    {% block extrahead %}{% endblock %}
+
+    {% block responsive %}
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{% static "admin/css/responsive.css" %}">
+    {% endblock %}
+
+    {% block blockbots %}
+        <meta name="robots" content="NONE, NOARCHIVE">
+    {% endblock %}
+</head>
+
+<body class="{% block bodyclass %}{% endblock %}" data-admin-utc-offset="{% now "Z" %}">
+    <!-- Container -->
+    <div id="container">
+        <!-- Header -->
+        <div id="header">
+            <div id="branding">
+            {% block branding %}
+                <h1 id="site-name">
+                    {% url 'home' as home_url %}
+                    <a href="{% firstof site_url home_url %}">
+                        {{ site_header|default:_('IDoneIt') }}
+                    </a>
+                </h1>
+            {% endblock %}
+            </div>
+            <div id="user-tools">
+                {% block userlinks-anonymous %}
+                    <a href="{% url 'user_site:login' %}">Log in user site</a> /
+                    <a href="{% url 'admin_site:login' %}">Log in admin site</a> /
+                    <a href="{% url 'signup' %}">Registration</a>
+                {% endblock %}
+            </div>
+            {% block nav-global %}{% endblock %}
+        </div>
+        <!-- END Header -->
+        {% block breadcrumbs %}
+            <div class="breadcrumbs"></div>
+        {% endblock %}
+        {% block messages %}
+        {% endblock messages %}
+        <!-- Content -->
+        <div id="content" class="{% block coltype %}colM{% endblock %}">
+            {% block pretitle %}{% endblock %}
+            {% block content_title %}{% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}
+            {% block content %}
+            {% block object-tools %}{% endblock %}
+            {{ content }}
+            {% endblock %}
+            {% block sidebar %}{% endblock %}
+            <br class="clear">
+        </div>
+        <!-- END Content -->
+
+        {% block footer %}<div id="footer"></div>{% endblock %}
+    </div>
+    <!-- END Container -->
+
+</body>
+
+</html>

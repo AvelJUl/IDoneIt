@@ -29,6 +29,7 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(_('last name'), max_length=30)
     last_login_date = models.DateTimeField(_('last_login_date'), blank=True, null=True)
     is_staff = models.BooleanField(_('is_staff'), default=True)
+    is_superuser = models.BooleanField(_('is_superuser'), default=True)
 
     objects = UserManager()
 

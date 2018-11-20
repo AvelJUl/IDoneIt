@@ -19,8 +19,12 @@ from django.conf.urls import url
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.admin import autodiscover
+
+autodiscover()
 
 urlpatterns = [
     path('', admin.admin_site.urls),
+    path('workspace/', admin.user_site.urls),
     url('', include('custom_auth.urls'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

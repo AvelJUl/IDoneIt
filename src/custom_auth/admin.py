@@ -16,7 +16,7 @@ class UserAdmin(_UserAdmin):
 
     Includes default admin options.
     """
-    add_form_template = 'admin/custom_auth/user/add_form.html'
+    #add_form_template = 'admin/custom_auth/user/add_form.html'
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
         (_('Personal info'), {'fields': ('first_name', 'last_name', 'email',)}),
@@ -41,9 +41,9 @@ class UserAdmin(_UserAdmin):
             '<a href="{}" class="btn btn-default">View</a>&nbsp;\
             <a href="{}" class="btn btn-info">Edit</a>&nbsp;\
             <a href="{}" class="btn btn-danger">Delete</a>',
-            reverse('admin:custom_auth_user_change', args=[obj.pk]),
-            reverse('admin:custom_auth_user_change', args=[obj.pk]),
-            reverse('admin:custom_auth_user_delete', args=[obj.pk]),
+            reverse('admin_site:custom_auth_user_change', args=[obj.pk]),
+            reverse('admin_site:custom_auth_user_change', args=[obj.pk]),
+            reverse('admin_site:custom_auth_user_delete', args=[obj.pk]),
         )
 
     account_actions.allow_tags = True
@@ -53,6 +53,7 @@ class UserAdmin(_UserAdmin):
         obj.created_by_id = request.user.id
         obj.is_staff = False
         super().save_model(request, obj, form, change)
+
 
 # Re-register UserAdmin
 admin.admin_site.register(User, UserAdmin)

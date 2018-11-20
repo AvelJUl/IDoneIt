@@ -39,7 +39,7 @@ class RegistrationView(CreateView):
         'title': _("New administrator registration")
     }
 
-    @method_decorator(user_passes_test(lambda u: not u.is_authenticated, login_url=reverse_lazy('admin_user_list')))
+    @method_decorator(user_passes_test(lambda u: not u.is_authenticated, login_url=reverse_lazy('admin:index')))
     @method_decorator(sensitive_post_parameters())
     @method_decorator(csrf_protect)
     @method_decorator(never_cache)

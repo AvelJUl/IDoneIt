@@ -92,9 +92,7 @@ AUTH_USER_MODEL = 'custom_auth.User'
 
 # URL to redirect user after authorization
 
-LOGIN_REDIRECT_URL = 'admin/users/'
-
-LOGOUT_REDIRECT_URL = '/accounts/login'
+LOGOUT_REDIRECT_URL = '/'
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
