@@ -62,5 +62,9 @@ class User(AbstractUser):
     )
     created_by_id = models.IntegerField(_('created_by_id'), default=0, blank=True, null=True)
 
+    def delete(self, *args, **kwargs):
+        User.objects.filter(created_by_id=self.id).delete()
+        super(User, self).delete(*args, **kwargs)
+
     class Meta(AbstractUser.Meta):
         swappable = 'AUTH_USER_MODEL'

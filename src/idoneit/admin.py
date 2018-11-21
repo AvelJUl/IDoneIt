@@ -1,5 +1,6 @@
 from django.contrib.admin import AdminSite as _AdminSite, register as _register
 from django.utils.translation import gettext_lazy as _
+from django.urls import reverse_lazy
 from custom_auth.auth import UserAdminAuthenticationForm
 
 
@@ -27,10 +28,13 @@ class UserSite(_AdminSite):
     # Text to put in each page's <h1>.
     site_header = _('IDoneIt workspace')
 
+    # Text to put in index page's <h1>.
     index_title = _('Workspace')
 
+    # Subclass of AuthenticationForm that will be used by the admin site login view.
     login_form = UserAdminAuthenticationForm
 
+    # Returns True if the user for the given HttpRequest has permission to view at least one page in the admin site.
     def has_permission(self, request):
         """
         Removed check for is_staff and is_superuser.

@@ -1,5 +1,4 @@
 from django.contrib.admin.helpers import Fieldset
-from django.contrib.auth.views import LoginView as _LoginView
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
@@ -11,20 +10,6 @@ from django.views.generic.edit import CreateView
 
 from custom_auth.models import User
 from custom_auth.forms import UserRegistrationForm
-
-
-class LoginView(_LoginView):
-    """
-    Extended LoginView class with decorator to redirect authenticated users.
-    """
-    template_name = 'registration/login.html'
-
-    @method_decorator(user_passes_test(lambda u: not u.is_authenticated, login_url=reverse_lazy('admin_user_list')))
-    @method_decorator(sensitive_post_parameters())
-    @method_decorator(csrf_protect)
-    @method_decorator(never_cache)
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
 
 
 class RegistrationView(CreateView):
@@ -61,7 +46,7 @@ class RegistrationView(CreateView):
         response = super().post(request, *args, **kwargs)
         if self.object is not None:
             self.object.is_staff = True
-            self.object.is_superuser=True
+            self.object.is_superuser = True
             self.object.created_by_id = self.object.id
             self.object.save()
         return response

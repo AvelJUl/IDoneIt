@@ -1,3 +1,4 @@
+from django.forms import BaseInlineFormSet
 from django.utils.html import format_html
 
 from custom_auth.models import User
@@ -28,7 +29,7 @@ class RoleAdmin(_admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(RoleAdmin, self).get_queryset(request)
-        return qs.filter(created_by_id=request.user.id)
+        return qs.filter(created_by=request.user)
 
     def account_actions(self, obj):
         return format_html(
@@ -44,16 +45,37 @@ class RoleAdmin(_admin.ModelAdmin):
     account_actions.short_description = "Account actions"
 
     def save_model(self, request, obj, form, change):
-        obj.created_by_id = request.user.id
+        obj.created_by = request.user
         super().save_model(request, obj, form, change)
 
 
 admin.admin_site.register(Role, RoleAdmin)
 
 
+class PermissionInlineFormSet(BaseInlineFormSet):
+
+    @staticmethod
+    def save_formset(request, form, formset, change):
+        instances = formset.save(commit=False)
+        for obj in formset.deleted_objects:
+            obj.delete()
+        for instance in instances:
+            instance.user = request.user
+            instance.save()
+        formset.save_m2m()
+
+
 class PermissionInline(_admin.TabularInline):
     model = Permission
     fields = ['member', 'role']
+    formset = PermissionInlineFormSet
+
+    def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
+        if db_field.name == 'member':
+            kwargs['queryset'] = User.objects.filter(created_by_id=request.user.id, is_staff=False)
+        else:
+            pass
+        return super(PermissionInline, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 class ProjectAdmin(_admin.ModelAdmin):
@@ -65,7 +87,6 @@ class ProjectAdmin(_admin.ModelAdmin):
     list_display = ('name', 'description', 'account_actions')
     search_fields = ('name',)
     ordering = ('-id',)
-
 
     def account_actions(self, obj):
         return format_html(
@@ -86,6 +107,28 @@ class ProjectAdmin(_admin.ModelAdmin):
 
 
 admin.admin_site.register(Project, ProjectAdmin)
+
+
+class ProjectUser(_admin.ModelAdmin):
+    """
+    Class for admin generic views of Role model.
+    """
+    fieldsets = ((_('Project information'), {'fields': ('name', 'description')}),)
+    inlines = [PermissionInline,]
+    list_display = ('name', 'description', 'members')
+    search_fields = ('name',)
+    ordering = ('-id',)
+
+    def members(self, obj):
+        result = str()
+        for participant in Permission.objects.filter(project=obj):
+            result += str(participant) + "\n"
+        return result
+
+    members.allow_tags = True
+
+
+admin.user_site.register(Project, ProjectUser)
 
 
 class IssueAdmin(_admin.ModelAdmin):
