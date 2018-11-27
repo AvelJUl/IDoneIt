@@ -1,10 +1,8 @@
 from django.utils.html import format_html
 
 from idoneit import admin
-from django.urls import path
 from django.urls import reverse
-from django.contrib.auth.models import Group
-from django.contrib.auth.admin import UserAdmin as _UserAdmin, GroupAdmin
+from django.contrib.auth.admin import UserAdmin as _UserAdmin
 from django.utils.translation import ugettext_lazy as _
 
 from custom_auth.models import User
@@ -12,11 +10,9 @@ from custom_auth.models import User
 
 class UserAdmin(_UserAdmin):
     """
-    Class for admin generic views of User model.
-
-    Includes default admin options.
+    Класс, который генерирует отобржение CRUD шаблонов модели
+    Пользователя в кабинете администратора.
     """
-    #add_form_template = 'admin/custom_auth/user/add_form.html'
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
         (_('Personal info'), {'fields': ('first_name', 'last_name', 'email',)}),
@@ -32,6 +28,7 @@ class UserAdmin(_UserAdmin):
     ordering = ('-id',)
     list_filter = ()
 
+    # Получение множества пользователе для отображение списка пользователей.
     def get_queryset(self, request):
         qs = super(UserAdmin, self).get_queryset(request)
         return qs.filter(created_by_id=request.user.id, is_staff=False)
@@ -49,11 +46,12 @@ class UserAdmin(_UserAdmin):
     account_actions.allow_tags = True
     account_actions.short_description = "Account actions"
 
+    # При создании пользователя из кабинета администратора поле is_staff=False.
     def save_model(self, request, obj, form, change):
         obj.created_by_id = request.user.id
         obj.is_staff = False
         super().save_model(request, obj, form, change)
 
 
-# Re-register UserAdmin
+# Регистрация модели Пользователя в кабинете администратора.
 admin.admin_site.register(User, UserAdmin)

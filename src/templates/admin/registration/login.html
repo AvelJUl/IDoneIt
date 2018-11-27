@@ -1,0 +1,25 @@
+{% load i18n %}
+<!-- Header -->
+<div id="header">
+    <div id="branding">
+    {% block branding %}
+        <h1 id="site-name">
+            {% url 'home' as home_url %}
+            <a href="{% firstof site_url home_url %}">
+                {{ site_header|default:_('IDoneIt') }}
+            </a>
+        </h1>
+    {% endblock %}
+    </div>
+    <div id="user-tools">
+        {% block userlinks-anonymous %}
+            <a href="{% url 'user_site:login' %}">Log in user site</a> /
+            <a href="{% url 'admin_site:login' %}">Log in admin site</a> /
+            <a href="{% url 'signup' %}">Registration</a>
+        {% endblock %}
+    </div>
+    {% block nav-global %}{% endblock %}
+</div>
+<!-- END Header -->
+
+{% include 'admin/login.html' %}

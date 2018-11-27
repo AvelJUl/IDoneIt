@@ -7,10 +7,7 @@ from django.contrib.auth.models import (
 
 class AbstractUser(AbstractBaseUser, PermissionsMixin):
     """
-    An abstract base class implementing a fully featured User model with
-    admin-compliant permissions.
-
-    Username and password are required. Other fields are optional.
+    Абстрактный класс пользователя.
     """
     username_validator = UnicodeUsernameValidator()
 
@@ -27,7 +24,6 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), blank=True)
     first_name = models.CharField(_('first name'), max_length=30)
     last_name = models.CharField(_('last name'), max_length=30)
-    last_login_date = models.DateTimeField(_('last_login_date'), blank=True, null=True)
     is_staff = models.BooleanField(_('is_staff'), default=True)
     is_superuser = models.BooleanField(_('is_superuser'), default=True)
 
@@ -49,19 +45,19 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
 
 class User(AbstractUser):
     """
-    Users within the Django authentication system are represented by this
-    model.
+    Класс Пользователь, который используется для аунтификации пользователей в системе.
 
-    Username, email and password are required. Other fields are optional.
+    В отличие от базового класса поле email является обязательным.
     """
     email = models.EmailField(
         _('email address'),
         max_length=150,
         blank=False,
-        help_text=_("Required. Email allows you reset password.")
+        help_text=_("Required.")
     )
     created_by_id = models.IntegerField(_('created_by_id'), default=0, blank=True, null=True)
 
+    # При удалении пользователя, удаление зарегистрированных им пользователей.
     def delete(self, *args, **kwargs):
         User.objects.filter(created_by_id=self.id).delete()
         super(User, self).delete(*args, **kwargs)

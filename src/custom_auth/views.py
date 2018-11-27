@@ -14,16 +14,25 @@ from custom_auth.forms import UserRegistrationForm
 
 class RegistrationView(CreateView):
     """
-    Generic view class for creating new user through registration form.
+    Класс, который генерирует отображение страницы регистрации ного пользователя.
     """
+    # Модель пользователя.
     model = User
+    # Форма регистрации пользователя.
     form_class = UserRegistrationForm
+    # Шаблон страницы регистрации пользователя.
     template_name = 'registration/registration_form.html'
-    success_url = reverse_lazy('login')
+    # Url, куда будет перенаправлен пользователь в случае успешной регистрации.
+    success_url = reverse_lazy('admin_site:login')
+    # Заголовок шаблона.
     extra_context = {
         'title': _("New administrator registration")
     }
 
+    """
+    Запрос на отображение страницы регистрации пользователя.
+    В случае, если пользователь авторизирован, перенаправлять его на главную страницу.
+    """
     @method_decorator(user_passes_test(lambda u: not u.is_authenticated, login_url=reverse_lazy('admin:index')))
     @method_decorator(sensitive_post_parameters())
     @method_decorator(csrf_protect)
@@ -42,11 +51,13 @@ class RegistrationView(CreateView):
         )
         return context
 
+    """
+    POST-запрос. При сохранении данных о новом пользователе установление is_staff в значение True.
+    """
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
         if self.object is not None:
             self.object.is_staff = True
-            self.object.is_superuser = True
             self.object.created_by_id = self.object.id
             self.object.save()
         return response

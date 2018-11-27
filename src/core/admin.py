@@ -12,7 +12,8 @@ from core.models import Role, Project, Permission, Issue, Meeting
 
 class RoleAdmin(_admin.ModelAdmin):
     """
-    Class for admin generic views of Role model.
+    Класс, который генерирует отобржение CRUD шаблонов модели
+    Роли в кабинете администратора.
     """
     fieldsets = (
         (None, {'fields': ('name',)}),
@@ -49,26 +50,17 @@ class RoleAdmin(_admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 
+# Регистрация модели Роль в кабинете администратора.
 admin.admin_site.register(Role, RoleAdmin)
 
 
-class PermissionInlineFormSet(BaseInlineFormSet):
-
-    @staticmethod
-    def save_formset(request, form, formset, change):
-        instances = formset.save(commit=False)
-        for obj in formset.deleted_objects:
-            obj.delete()
-        for instance in instances:
-            instance.user = request.user
-            instance.save()
-        formset.save_m2m()
-
-
 class PermissionInline(_admin.TabularInline):
+    """
+    Класс, который генерирует отобржение отношений между
+    моделями Проект, Пользователь и Роль.
+    """
     model = Permission
     fields = ['member', 'role']
-    formset = PermissionInlineFormSet
 
     def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
         if db_field.name == 'member':
@@ -80,7 +72,8 @@ class PermissionInline(_admin.TabularInline):
 
 class ProjectAdmin(_admin.ModelAdmin):
     """
-    Class for admin generic views of Role model.
+    Класс, который генерирует отобржение CRUD шаблонов модели
+    Проект в кабинете администратора.
     """
     fieldsets = ((_('Project information'), {'fields': ('name', 'description')}),)
     inlines = [PermissionInline,]
@@ -102,16 +95,18 @@ class ProjectAdmin(_admin.ModelAdmin):
     account_actions.short_description = "Account actions"
 
     def save_model(self, request, obj, form, change):
-        obj.created_by_id = request.user.id
+        obj.created_by = request.user
         super().save_model(request, obj, form, change)
 
 
+# Регистрация модели Проект в кабинете администратора.
 admin.admin_site.register(Project, ProjectAdmin)
 
 
 class ProjectUser(_admin.ModelAdmin):
     """
-    Class for admin generic views of Role model.
+    Класс, который генерирует отобржение CRUD шаблонов модели
+    Проект в кабинете пользователя.
     """
     fieldsets = ((_('Project information'), {'fields': ('name', 'description')}),)
     inlines = [PermissionInline,]
@@ -119,6 +114,19 @@ class ProjectUser(_admin.ModelAdmin):
     search_fields = ('name',)
     ordering = ('-id',)
 
+    # Возможность создания.
+    def has_add_permission(self, request):
+        return False
+
+    # Возможность редактирования.
+    def has_change_permission(self, request, obj=None):
+        return Permission.objects.get(member=request.user).role.edit_project
+
+    # Возможность удаления.
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    # Отображение участников проекта с их ролями.
     def members(self, obj):
         result = str()
         for participant in Permission.objects.filter(project=obj):
@@ -128,19 +136,37 @@ class ProjectUser(_admin.ModelAdmin):
     members.allow_tags = True
 
 
+# Регистрация модели Проект в кабинете пользователя.
 admin.user_site.register(Project, ProjectUser)
 
 
 class IssueAdmin(_admin.ModelAdmin):
     """
-    Class for admin generic views of Role model.
+    Класс, который генерирует отобржение CRUD шаблонов модели
+    Задача в кабинете пользователя.
     """
     fieldsets = ((_('Issue information'), {'fields': ('tracker', 'subject', 'description')}),
                  (_('Additional information'), {'fields': ('status', 'related_to', 'progress', 'update')}),)
-    list_display = ('tracker', 'subject', 'description', 'status', 'update', 'account_actions')
+    list_display = ('subject', 'tracker', 'description', 'status', 'update', 'account_actions')
     search_fields = ('subject',)
     ordering = ('-id',)
     list_filter = ('tracker', 'status')
+
+    # Возможность создания.
+    def has_add_permission(self, request):
+        return Permission.objects.get(member=request.user).role.create_issue
+
+    # Возможность редактирования.
+    def has_change_permission(self, request, obj=None):
+        return Permission.objects.get(member=request.user).role.edit_issue
+
+    # Возможность удаления.
+    def has_delete_permission(self, request, obj=None):
+        return Permission.objects.get(member=request.user).role.delete_issue
+
+    def save_model(self, request, obj, form, change):
+        obj.project = Permission.objects.get(member=request.user).project
+        super().save_model(request, obj, form, change)
 
     def account_actions(self, obj):
         return format_html(
@@ -156,12 +182,14 @@ class IssueAdmin(_admin.ModelAdmin):
     account_actions.short_description = "Account actions"
 
 
+# Регистрация модели Задача в кабинете пользователя.
 admin.user_site.register(Issue, IssueAdmin)
 
 
 class MeetingAdmin(_admin.ModelAdmin):
     """
-    Class for admin generic views of Role model.
+    Класс, который генерирует отобржение CRUD шаблонов модели
+    Встреча в кабинете пользователя.
     """
     fieldsets = ((_('Meeting information'), {'fields': ('project', 'subject', 'place', 'date_and_time', 'members')}),)
     list_display = ('subject', 'place', 'date_and_time')
@@ -173,6 +201,18 @@ class MeetingAdmin(_admin.ModelAdmin):
         if db_field.name == "user":
             kwargs["queryset"] = User.objects.filter(created_by_id=request.user.created_by_id)
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
+    # Возможность создания.
+    def has_add_permission(self, request):
+        return Permission.objects.get(member=request.user).role.create_issue
+
+    # Возможность редактирования.
+    def has_change_permission(self, request, obj=None):
+        return Permission.objects.get(member=request.user).role.edit_issue
+
+    # Возможность удаления.
+    def has_delete_permission(self, request, obj=None):
+        return Permission.objects.get(member=request.user).role.delete_issue
 
     def account_actions(self, obj):
         return format_html(
@@ -188,4 +228,5 @@ class MeetingAdmin(_admin.ModelAdmin):
     account_actions.short_description = "Account actions"
 
 
+# Регистрация модели Встреча в кабинете пользователя.
 admin.user_site.register(Meeting, MeetingAdmin)
