@@ -28,10 +28,6 @@ class RoleAdmin(_admin.ModelAdmin):
     list_filter = ('edit_project', 'create_issue', 'edit_issue', 'delete_issue', 'create_meeting',
                    'edit_meeting', 'delete_meeting')
 
-    def get_queryset(self, request):
-        qs = super(RoleAdmin, self).get_queryset(request)
-        return qs.filter(created_by=request.user)
-
     def account_actions(self, obj):
         return format_html(
             '<a href="{}" class="btn btn-default">View</a>&nbsp;\
@@ -204,15 +200,15 @@ class MeetingAdmin(_admin.ModelAdmin):
 
     # Возможность создания.
     def has_add_permission(self, request):
-        return Permission.objects.get(member=request.user).role.create_issue
+        return Permission.objects.get(member=request.user).role.create_meeting
 
     # Возможность редактирования.
     def has_change_permission(self, request, obj=None):
-        return Permission.objects.get(member=request.user).role.edit_issue
+        return Permission.objects.get(member=request.user).role.edit_meeting
 
     # Возможность удаления.
     def has_delete_permission(self, request, obj=None):
-        return Permission.objects.get(member=request.user).role.delete_issue
+        return Permission.objects.get(member=request.user).role.delete_meeting
 
     def account_actions(self, obj):
         return format_html(
